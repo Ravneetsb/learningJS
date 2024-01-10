@@ -48,29 +48,30 @@ class LinkedList {
         ++this.#size;
     }
 
-    remove(pos) {
+    remove(pos=Number()) {
         if (pos < 0 || pos > this.#size) {
-            throw new Error("pos must be between 0 and size");
+            throw new Error("0 <= pos < size");
         }
-
         let curr = this.head;
-        let data = null;
 
-        if (pos == 0) {
-            data = this.head.val;
+        if (pos === 0) {
+            let data = curr.val;
             this.head = this.head.next;
             --this.#size;
             return data;
         }
 
-        for (let i = 1; i < pos - 1; i++) {
+        for (let i = 1; i < pos - 1 ; i++) {
             curr = curr.next;
         }
-        data = curr.next.val;
+
+        let data =  curr.next.data;
         curr.next = curr.next.next;
         --this.#size;
         return data;
     }
+
+
 
     get(pos) {
         if (typeof(pos) != "number") {
