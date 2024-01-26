@@ -8,10 +8,11 @@ const myGameArea = {
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(updateGameArea, 20);
         window.addEventListener('keydown', function (e) {
-            myGameArea.key = e.key;
+            myGameArea.keys = (myGameArea.keys || []);
+            myGameArea.keys[e.key] = true;
         })
-        window.addEventListener('keyup', function () {
-            myGameArea.key = false;
+        window.addEventListener('keyup', function (e) {
+            myGameArea.keys[e.key] = false;
         })
     },
     clear : function() {
@@ -60,10 +61,10 @@ function updateGameArea() {
     myGameArea.clear();
     piece.speedY = 0;
     piece.speedX = 0;
-    if (myGameArea.key &&  myGameArea.key === 'ArrowUp') {piece.speedY -= 1;}
-    if (myGameArea.key &&  myGameArea.key === 'ArrowDown') {piece.speedY += 1;}
-    if (myGameArea.key &&  myGameArea.key === 'ArrowLeft') {piece.speedX -= 1;}
-    if (myGameArea.key &&  myGameArea.key === 'ArrowRight') {piece.speedX += 1;}
+    if (myGameArea.keys &&  myGameArea.keys['ArrowUp']) {piece.speedY -= 1;}
+    if (myGameArea.keys &&  myGameArea.keys['ArrowDown']) {piece.speedY += 1;}
+    if (myGameArea.keys &&  myGameArea.keys['ArrowLeft']) {piece.speedX -= 1;}
+    if (myGameArea.keys &&  myGameArea.keys['ArrowRight']) {piece.speedX += 1;}
     piece.newPos();
     updatePieces();
 }
